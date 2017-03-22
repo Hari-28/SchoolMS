@@ -21,8 +21,12 @@ class UserLoginTest(TestCase):
 		t1 = User.objects.get( userName='test',password='test' )
 		t2 = t1.login()
 		#self.assertEqual( t2.salary , 10 )
-	
-
+	def test_name(self):
+		obj = User(userName='hi',firstName = 'test', middleName = 'my' , lastName = 'name')
+		obj.save()
+		user = User.objects.get(userName='hi')
+		self.assertEqual(user.getName() , 'test my name')
+		
 	
 class FeeTests(TestCase):
     

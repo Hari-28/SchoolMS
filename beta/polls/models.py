@@ -15,8 +15,11 @@ class User(models.Model):
 		user=User.objects.get(userName=self.userName, password= self.password)
 		staff= user.staffID 
 		return staff
-   	
-
+   def getName(self):
+		return self.firstName+' '+self.middleName+' '+self.	lastName
+	
+	
+	
 
 class Staff(models.Model):
    positions = ( ('A','Accountant') ,  ('H','Head Accountant') , ('C', 'Correspondent') )
@@ -26,7 +29,11 @@ class Staff(models.Model):
    joinDate = models.DateField( null=True )
    cID = models.ForeignKey('Contact', default=1)
    addrID = models.ForeignKey('Address', default=1)
-   
+   def registerStaff(staff):
+		x=Staff.objects.filter().count()
+		obj = Staff(position =staff.position , salary = staff.position , joinDate = staff.joinDate , cID = staffID.cID , addrID = staff.addrID , staffID = x )
+		obj.save()
+		return x
    
    
    
@@ -91,6 +98,8 @@ class FeeStruct ( models.Model ):
    def total_acadfee(self):
        return self.acadFee * 10;
 	
-class Subject (models.Model)
+class Subject (models.Model):
 	subjectId = models.IntegerField(primary_key=True)
 	subjectName = models.CharField(max_length=50)
+	lessonPlan = models.CharField( max_length=50 )
+	
