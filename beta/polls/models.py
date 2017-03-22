@@ -91,3 +91,6 @@ class FeeStruct ( models.Model ):
    def total_acadfee(self):
        return self.acadFee * 10;
 	
+class Subject (models.Model)
+	subjectId = models.IntegerField(primary_key=True)
+	subjectName = models.CharField(max_length=50)

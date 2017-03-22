@@ -36,7 +36,7 @@ class FeeTests(TestCase):
 		s1.initBalance()
 		#self.assertEqual(f1.vanFee , 10)
 		self.assertEqual( s1.getBalance() , 2300 )
-
-
+		
+    
 		
 		
