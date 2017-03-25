@@ -3,7 +3,7 @@ from .models import User,Staff,FeeStruct,Student
 
 
 # Create your tests here.
-
+	
 
 
 class UserLoginTest(TestCase):
@@ -42,5 +42,21 @@ class FeeTests(TestCase):
 		self.assertEqual( s1.getBalance() , 2300 )
 		
     
-		
+class addStaff(TestCase) :
+		def test_Staff(self):
+			obj = Staff(staffID=1,salary=20)
+			obj.save()
+			obj2 = Staff(salary=20)	
+			O=Staff.objects.get(staffID=1)
+			self.assertEqual(O.registerStaff(obj2),2)
+		def test_headAccountant(self):
+			obj = Staff(staffID=1)
+			obj.save()
+			obj2 = Staff(position='A')
+			obj2.save()
+			cor = Staff.objects.get(staffID=1)
+			cor.setHeadAccountant(2)
+			obj = Staff.objects.get(staffID=2)
+			self.assertEqual( obj.position , 'H' )
+			
 		
