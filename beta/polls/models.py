@@ -24,17 +24,22 @@ class User(models.Model):
 class Staff(models.Model):
    positions = ( ('A','Accountant') ,  ('H','Head Accountant') , ('C', 'Correspondent') )
    staffID = models.IntegerField(primary_key=True)
-   salary = models.IntegerField(default = 0)
+   salary = models.IntegerField(default = 0,null=True)
    position = models.CharField(max_length = 50, null = True ,choices = positions )
    joinDate = models.DateField( null=True )
-   cID = models.ForeignKey('Contact', default=1)
-   addrID = models.ForeignKey('Address', default=1)
-   def registerStaff(staff):
-		x=Staff.objects.filter().count()
-		obj = Staff(position =staff.position , salary = staff.position , joinDate = staff.joinDate , cID = staffID.cID , addrID = staff.addrID , staffID = x )
+   #cID = models.ForeignKey('Contact', default=1)
+   #addrID = models.ForeignKey('Address', default=1)
+   def registerStaff(self,staff):
+		x=Staff.objects.filter().count()+1
+		obj = Staff(position =staff.position , salary = staff.position , joinDate = staff.joinDate , staffID = x ) 
+		''' cID = staff.cID , addrID = staff.addrID ,'''
 		obj.save()
 		return x
-   
+   def setHeadAccountant(self,ID):
+		x= Staff.objects.get(staffID=ID)
+		x.position='H'
+		x.save()
+		return 1
    
    
 class Contact(models.Model):
