@@ -29,6 +29,7 @@ class Staff(models.Model):
    joinDate = models.DateField( null=True )
    #cID = models.ForeignKey('Contact', default=1)
    #addrID = models.ForeignKey('Address', default=1)
+   
    def registerStaff(self,staff,username):
 		x=Staff.objects.filter().count()+1
 		obj = Staff(position =staff.position , salary = staff.position , joinDate = staff.joinDate , staffID = x ) 
@@ -38,11 +39,14 @@ class Staff(models.Model):
 		user = User(staffID=obj,userName=username, password ='password')
 		user.save()
 		return username
+		
    def setHeadAccountant(self,ID):
 		x= Staff.objects.get(staffID=ID)
 		x.position='H'
 		x.save()
 		return 1
+		
+		
    def updateStaff(self,user,ID):
 		x = User.objects.get(staffID=ID)
 		x.firstName = user.firstName
@@ -58,13 +62,17 @@ class Contact(models.Model):
    cID = models.IntegerField()
    email = models.EmailField( max_length=100 , null=True)
    phoneNumber = models.IntegerField( )
-      
+   def createContact(self, email , phoneNumber):
+     c= Contact(cID = cID , email = email , phoneNumber = phoneNumber)
+     c.save()
+		
 class Address(models.Model):
-   addrID = models.IntegerField( null = True)
+   addrID = models.IntegerField( primary_key=True)
    address = models.CharField(max_length = 50 , null = True)
    pin = models.IntegerField(null = True)
-   State = models.CharField(max_length = 50 , null = True)
-   
+   state = models.CharField(max_length = 50 , null = True)
+   def createAddress(self,address,pin,state):
+        a = Address()
 class Parent(models.Model):
    cID = models.ForeignKey('Contact', default=1)
    addrID = models.ForeignKey('Address', default=1)
