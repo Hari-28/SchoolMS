@@ -29,16 +29,28 @@ class Staff(models.Model):
    joinDate = models.DateField( null=True )
    #cID = models.ForeignKey('Contact', default=1)
    #addrID = models.ForeignKey('Address', default=1)
-   def registerStaff(self,staff):
+   def registerStaff(self,staff,username):
 		x=Staff.objects.filter().count()+1
 		obj = Staff(position =staff.position , salary = staff.position , joinDate = staff.joinDate , staffID = x ) 
 		''' cID = staff.cID , addrID = staff.addrID ,'''
 		obj.save()
-		return x
+		obj= Staff.objects.get(staffID=x)
+		user = User(staffID=obj,userName=username, password ='password')
+		user.save()
+		return username
    def setHeadAccountant(self,ID):
 		x= Staff.objects.get(staffID=ID)
 		x.position='H'
 		x.save()
+		return 1
+   def updateStaff(self,user,ID):
+		x = User.objects.get(staffID=ID)
+		x.firstName = user.firstName
+		x.middleName = user.middleName
+		x.lastName = user.lastName
+		x.dob = user.dob
+		x.sex = user.sex
+ 		x.save()
 		return 1
    
    
