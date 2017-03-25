@@ -42,13 +42,17 @@ class FeeTests(TestCase):
 		self.assertEqual( s1.getBalance() , 2300 )
 		
     
-class addStaff(TestCase) :
+class updateStaff(TestCase) :
 		def test_Staff(self):
 			obj = Staff(staffID=1,salary=20)
 			obj.save()
 			obj2 = Staff(salary=20)	
+
 			O=Staff.objects.get(staffID=1)
-			self.assertEqual(O.registerStaff(obj2),2)
+			p=O.registerStaff(obj2,'tests')
+
+			ob = User.objects.get(userName ='tests')
+			self.assertEqual(ob.userName,'tests')
 		def test_headAccountant(self):
 			obj = Staff(staffID=1)
 			obj.save()
@@ -58,5 +62,19 @@ class addStaff(TestCase) :
 			cor.setHeadAccountant(2)
 			obj = Staff.objects.get(staffID=2)
 			self.assertEqual( obj.position , 'H' )
-			
-		
+		def test_updateStaff(self):
+			acc = Staff( salary=1 )
+			acc.save()
+			a = User()
+			a.StaffID =1
+			a.save()
+			x= User()
+			x.firstName = 'test'
+			x.middleName = 'for'
+			x.lastName = 'name'
+			x.dob = '2006-12-19'
+			x.sex = 'M'
+			acc = Staff.objects.get(staffID=1)
+			acc.updateStaff(x,1)
+			x = User.objects.get(firstName='test')
+			self.assertEqual(x.middleName,'for')
