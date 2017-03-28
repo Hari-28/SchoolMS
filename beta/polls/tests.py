@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import User,Staff,FeeStruct,Student
+from .models import User,Staff,FeeStruct,Student,Contact, Address
 
 
 # Create your tests here.
@@ -41,7 +41,22 @@ class FeeTests(TestCase):
 		#self.assertEqual(f1.vanFee , 10)
 		self.assertEqual( s1.getBalance() , 2300 )
 		
-    
+
+class DetailsCheck(TestCase):
+	def test_create_contact(self):
+		sta = Staff(salary=2)
+		sta.save()
+		id=sta.createAddress(address='test',pin = 200, state = 'AP')
+		self.assertEqual(id,1)
+	def test_create_address(self):
+		sta = Staff(salary =2) 
+		sta.save()
+		id = sta.createContact(phoneNumber = 9000000000 , email='rikith.legend@gmail.com')
+		self.assertEqual(id,1)
+		
+		
+		
+		
 class updateStaff(TestCase) :
 		def test_Staff(self):
 			obj = Staff(staffID=1,salary=20)
@@ -65,7 +80,6 @@ class updateStaff(TestCase) :
 			self.assertEqual( obj.position , 'H' )
 			
 			
-			
 		def test_updateStaff(self):
 			acc = Staff( salary=1 )
 			acc.save()
@@ -82,4 +96,3 @@ class updateStaff(TestCase) :
 			acc.updateStaff(x,1)
 			x = User.objects.get(firstName='test')
 			self.assertEqual(x.middleName,'for')
-			
