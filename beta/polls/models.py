@@ -10,8 +10,8 @@ class User(models.Model):
    password = models.CharField(max_length = 50)
    dob = models.DateField(null=True)
    sex = models.CharField( max_length = 1,choices = gender )
-   staffID = models.ForeignKey('Staff',default = 1 )
-   
+   staffID = models.ForeignKey('Staff',null = True )
+   studentID = models.ForeignKey('Student', null=True)
    def login(self):
 		user=User.objects.get(userName=self.userName, password= self.password)
 		staff= user.staffID 
@@ -28,9 +28,9 @@ class Staff(models.Model):
    salary = models.IntegerField(default = 0,null=True)
    position = models.CharField(max_length = 50, null = True ,choices = positions )
    joinDate = models.DateField( null=True )
-   #cID = models.ForeignKey('Contact', default=1)
-   #addrID = models.ForeignKey('Address', default=1)
-   
+   cID = models.ForeignKey('Contact',null = True)
+   addrID = models.ForeignKey('Address', null = True)
+    
    def registerStaff(self,staff,username):
 		x=Staff.objects.filter().count()+1
 		obj = Staff(position =staff.position , salary = staff.position , joinDate = staff.joinDate , staffID = x ) 
@@ -107,10 +107,19 @@ class Student(models.Model):
         return self.feesToBePaid
 
 class Class ( models.Model ):
-   classNumber = models.IntegerField(null= True)
+   classNumber = models.IntegerField(primary_key=True )
    numberSections = models.IntegerField(null = True)
-   acadYear = models.IntegerField(primary_key=True)
-   
+   acadYear = models.IntegerField(null = True)
+   def makeAcadYear(self,acadYear):
+       for i in range(-1,11):
+           c = Class(classNumber = i,acadYear = acadYear )
+		   c.save()
+    '''
+    def makeSection(self,acadYear):
+     addrID = Address.objects.filter().count()+1
+    '''
+		   
+		   
 class Section ( models.Model ): 
    classNumber = models.ForeignKey('Class',default=1)
    strength = models.IntegerField( null = True )
