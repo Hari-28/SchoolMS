@@ -58,22 +58,30 @@ class Staff(models.Model):
  		x.save()
 		return 1
    
-   
+   def createContact(self, email , phoneNumber):
+      cID = Contact.objects.filter().count()+1
+      c= Contact(cID = cID , email = email , phoneNumber = phoneNumber)
+      c.save()
+      return cID
+    
+   def createAddress(self,address,pin,state):
+      addrID = Address.objects.filter().count()+1
+      a = Address(addrID = addrID ,address=address , pin = pin , state = state )		
+      a.save()
+      return addrID
+		
 class Contact(models.Model):
    cID = models.IntegerField()
    email = models.EmailField( max_length=100 , null=True)
    phoneNumber = models.IntegerField( )
-   def createContact(self, email , phoneNumber):
-     c= Contact(cID = cID , email = email , phoneNumber = phoneNumber)
-     c.save()
+
 		
 class Address(models.Model):
    addrID = models.IntegerField( primary_key=True)
    address = models.CharField(max_length = 50 , null = True)
    pin = models.IntegerField(null = True)
    state = models.CharField(max_length = 50 , null = True)
-   def createAddress(self,address,pin,state):
-        a = Address()
+   
 class Parent(models.Model):
    cID = models.ForeignKey('Contact', default=1)
    addrID = models.ForeignKey('Address', default=1)
