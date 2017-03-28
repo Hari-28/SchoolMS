@@ -11,6 +11,7 @@ class User(models.Model):
    dob = models.DateField(null=True)
    sex = models.CharField( max_length = 1,choices = gender )
    staffID = models.ForeignKey('Staff',default = 1 )
+   
    def login(self):
 		user=User.objects.get(userName=self.userName, password= self.password)
 		staff= user.staffID 
@@ -96,10 +97,11 @@ class Student(models.Model):
         
    def getBalance(self):
         return self.feesToBePaid
+
 class Class ( models.Model ):
    classNumber = models.IntegerField(null= True)
    numberSections = models.IntegerField(null = True)
-
+   acadYear = models.IntegerField(primary_key=True)
    
 class Section ( models.Model ): 
    classNumber = models.ForeignKey('Class',default=1)
@@ -122,7 +124,7 @@ class FeeStruct ( models.Model ):
        return self.termFee * self.numberTerms
    def total_acadfee(self):
        return self.acadFee * 10;
-	
+   
 class Subject (models.Model):
 	subjectId = models.IntegerField(primary_key=True)
 	subjectName = models.CharField(max_length=50)

@@ -50,9 +50,10 @@ class updateStaff(TestCase) :
 
 			O=Staff.objects.get(staffID=1)
 			p=O.registerStaff(obj2,'tests')
-
 			ob = User.objects.get(userName ='tests')
 			self.assertEqual(ob.userName,'tests')
+			
+			
 		def test_headAccountant(self):
 			obj = Staff(staffID=1)
 			obj.save()
@@ -62,6 +63,9 @@ class updateStaff(TestCase) :
 			cor.setHeadAccountant(2)
 			obj = Staff.objects.get(staffID=2)
 			self.assertEqual( obj.position , 'H' )
+			
+			
+			
 		def test_updateStaff(self):
 			acc = Staff( salary=1 )
 			acc.save()
@@ -78,3 +82,4 @@ class updateStaff(TestCase) :
 			acc.updateStaff(x,1)
 			x = User.objects.get(firstName='test')
 			self.assertEqual(x.middleName,'for')
+			
