@@ -1,24 +1,35 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Album
 from django.contrib.auth import authenticate, login
 
 def index(request):
-    context = {}
+    all_albums = Album.objects.all()
+    context = {'all_albums':all_albums,}
     return render(request,'polls/login.html',context)
 
 def my_view(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username='hari', password='pass')
-    if user is not None:
-        login(request, user)
-        context11 = {}
-        return render(request, 'polls/correspondent.html', context11)
-    else:
-        HttpResponse("Invalid login")
+    if request.method == 'POST':
+        username = request.POST.get('username11')
+        password = request.POST.get('password11')
+        ss="iiitg"
+        if username == ss:
+            context346 = {"username": username}
+            return render(request, 'polls/correspondent.html', context346)
+        else:
+            return HttpResponse("User is not iiitg")
 
-def detail(request):
-    return HttpResponse("<h2>Album_id :")
+    else:
+        return HttpResponse("Invalid method declared.")
+
+
+def detail(request, album_id):
+    return HttpResponse("<h2>Album_id :" + str(album_id) )
+
+def side(request, side_id):
+    context110 = {}
+    return render(request, 'polls/correspondent.html/'+str(side_id), context110)
+
 
 def cor(request):
     context0={}
@@ -39,6 +50,10 @@ def caddstud(request):
     context={}
     return render(request,'polls/c_addstudent.html',context)
 
+def caddfac(request):
+    context1234={}
+    return render(request,'polls/c_addfaculty.html',context1234)
+
 def caddreg(request):
     context={}
     return render(request,'polls/c_addregistar.html',context)
@@ -50,3 +65,8 @@ def caddstaff(request):
 def creq(request):
     context45={}
     return render(request,'polls/c_request.html',context45)
+
+
+def capp(request):
+    context46={}
+    return render(request,'polls/c_approval.html',context46)
