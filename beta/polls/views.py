@@ -14,7 +14,7 @@ def my_view(request):
         password = request.POST.get('password11')
         ss="iiitg"
         if username == ss:
-            context346 = {"username": username}
+            context346 = {"username": password}
             return render(request, 'polls/correspondent.html', context346)
         else:
             return HttpResponse("User is not iiitg")
@@ -24,7 +24,7 @@ def my_view(request):
 
 
 def detail(request, album_id):
-    return HttpResponse("<h2>Album_id :" + str(album_id) )
+    return HttpResponse("<h2>Album_id is " + str(album_id) )
 
 def side(request, side_id):
     context110 = {}
