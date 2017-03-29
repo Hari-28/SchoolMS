@@ -83,9 +83,13 @@ class updateStaff(TestCase) :
 		def test_updateStaff(self):
 			acc = Staff( salary=1 )
 			acc.save()
+			n = Staff(salary =2 )
+			
 			a = User()
 			a.StaffID =1
 			a.save()
+			
+			
 			x= User()
 			x.firstName = 'test'
 			x.middleName = 'for'
@@ -93,6 +97,8 @@ class updateStaff(TestCase) :
 			x.dob = '2006-12-19'
 			x.sex = 'M'
 			acc = Staff.objects.get(staffID=1)
-			acc.updateStaff(x,1)
+			acc.registerStaff(n,'a')
+			
+			acc.updateStaff(x,2)
 			x = User.objects.get(firstName='test')
 			self.assertEqual(x.middleName,'for')

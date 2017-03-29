@@ -11,7 +11,7 @@ class User(models.Model):
    dob = models.DateField(null=True)
    sex = models.CharField( max_length = 1,choices = gender )
    staffID = models.ForeignKey('Staff',null = True )
-   studentID = models.ForeignKey('Student', null=True)
+   studentID = models.ForeignKey('Student',null=True)
    def login(self):
 		user=User.objects.get(userName=self.userName, password= self.password)
 		staff= user.staffID 
@@ -49,7 +49,9 @@ class Staff(models.Model):
 		
 		
    def updateStaff(self,user,ID):
-		x = User.objects.get(staffID=ID)
+		s = Staff.objects.get(staffID=ID)
+		
+		x = User.objects.get(staffID=s)
 		x.firstName = user.firstName
 		x.middleName = user.middleName
 		x.lastName = user.lastName
@@ -111,13 +113,10 @@ class Class ( models.Model ):
    numberSections = models.IntegerField(null = True)
    acadYear = models.IntegerField(null = True)
    def makeAcadYear(self,acadYear):
-       for i in range(-1,11):
-           c = Class(classNumber = i,acadYear = acadYear )
-		   c.save()
-    '''
-    def makeSection(self,acadYear):
-     addrID = Address.objects.filter().count()+1
-    '''
+        for i in range(-1,11):
+          c = Class(classNumber = i,acadYear = acadYear )
+          c.save()
+          
 		   
 		   
 class Section ( models.Model ): 
