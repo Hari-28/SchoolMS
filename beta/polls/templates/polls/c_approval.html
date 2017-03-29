@@ -5,15 +5,15 @@ Correspondent
 {%endblock%}
 
 {%block menubar%}
-    <li><a href='#'>Adding members</a><ul><li><a href="{% url 'caddstaff'%}">Staff</a></li><li><a href="{% url 'caddstud'%}">Students</a></li><li><a href="{% url 'caddfac'%}">Faculty</a></li><li><a href='#'>Registar</a></li></ul></li>
+    <li><a href='#'>Adding members</a><ul><li><a href="{% url 'caddstaff'%}">Staff</a></li><li><a href="{% url 'caddstaff'%}">Students</a></li><li><a href="{% url 'caddfac'%}">Faculty</a></li><li><a href="{% url 'caddreg'%}">Registar</a></li></ul></li>
 
     <li><a href='#'>View/Update details</a><ul><li><a href='##'>Staff</a></li><li><a href='#'>Students</a></li><li><a href='#'>Faculty</a></li><li><a href='#'>Registar</a></li><li><a href='#'>Head Registar</a></li></ul></li>
 
-    <li><a href='#'>Requests </a><ul><li><a href="{% url 'creq'%}">Funds</a></li><li><a href="{% url 'creq'%}">Concession</a></li><li><a href="{% url 'creq'%}">Reimbursment</a></li></ul></li>
+<li><a href='#'>Requests </a><ul><li><a href="{% url 'creq'%}">Funds</a></li><li><a href="{% url 'creq'%}">Concession</a></li><li><a href="{% url 'creq'%}">Reimbursment</a></li></ul></li>
 
     <li><a href='#'>Fee Details</a><ul><li><a href='#'>Propose Fee structure</a></li><li><a href='#'>Set fees</a></li><li><a href='#'>View fee details</a></li></ul></li>
 
-<li><a href='#'>Approve Requests &nbsp;<span style="background-color:limegreen;padding:3px;text-align:right;">14</span></a><ul><li><a href="{% url 'capp'%}">Funds&nbsp;<span style="background-color:limegreen;padding:3px;">7</span></a></li><li><a href="{% url 'capp'%}">Approve staff&nbsp;<span style="background-color:limegreen;padding:3px;">3</span></a></li><li><a href="{% url 'capp'%}">Concession</a></li><li><a href="{% url 'capp'%}">Reimbursment&nbsp;<span style="background-color:limegreen;padding:3px;">4</span></a></li></ul></li>
+<li><a href='#'>Approve Requests &nbsp;<span style="background-color:limegreen;padding:3px;text-align:right;">14</span></a><ul><li><a href='###'>Funds&nbsp;<span style="background-color:limegreen;padding:3px;">7</span></a></li><li><a href='#'>Approve staff&nbsp;<span style="background-color:limegreen;padding:3px;">3</span></a></li><li><a href='#'>Concession</a></li><li><a href='#'>Reimbursment&nbsp;<span style="background-color:limegreen;padding:3px;">4</span></a></li></ul></li>
 {% endblock %}
 
 
@@ -37,28 +37,59 @@ Correspondent
 
 {% block page_content %}
 <ul>
-<h1>Adding Registar</h1>
+<ul>
+<h1>Approval page : Funds</h1>
 <form class="form-style-7" action="{% url 'cor'%}" method="get" >
 <ul>
 <li>
-    <label for="name">Name</label>
-    <input type="text" name="name" maxlength="100">
-    <span>Enter full name here</span>
+    <label for="amount">Amount</label>
+    <input type="number" name="amount" maxlength="10" value="20000">
+    <span>Enter in Indian Rupees</span>
 </li>
 <li>
-    <label for="email">Email</label>
-    <input type="email" name="email" maxlength="100">
-    <span>Enter a valid email address</span>
+    <label for="reason">Reason</label>
+    <input type="text" name="reason" maxlength="100" onkeyup="adjust_textarea(this)" value="nothing so serious">
+    <span>Enter reason or remarks here</span>
 </li>
-<li>
-    <label for="add">Address</label>
-    <textarea name="add" onkeyup="adjust_textarea(this)"></textarea>
-    <span>Enter Detailed address here</span>
-</li>
-<li>
+    <li>
     <input type="submit" value="Submit Now" >
 </li>
 </ul>
 </form>
 </ul>
+
+<ul>
+<h1>Approval page : Concession</h1>
+<form class="form-style-7" action="{% url 'cor'%}" method="get" >
+<ul>
+<li>
+    <label for="name">Name</label>
+    <input type="text" name="name" maxlength="100" value="kasthuri rajesh">
+    <span>Enter full name here</span>
+</li>
+<li>
+    <label for="reason">Reason</label>
+    <input type="text" name="reason" maxlength="100" onkeyup="adjust_textarea(this)" value="nothing so serious">
+    <span>Enter reason or remarks here</span>
+</li>
+    <li>
+    <label for="class">Class</label>
+    <input type="number" name="class" max="10" value="5">
+    </li>
+    <li>
+    <label for="amount">Amount</label>
+    <input type="number" name="amount" maxlength="10" value="5000">
+    <span>Enter in Indian Rupees</span>
+</li>
+
+    <li>
+    <input type="submit" value="Submit Now" >
+</li>
+</ul>
+</form>
+
+
+</ul>
+</ul>
+
 {% endblock %}

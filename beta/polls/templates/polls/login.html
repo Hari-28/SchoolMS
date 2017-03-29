@@ -188,12 +188,13 @@
 
 
     <div style="border:2px solid blueviolet;max-width:300px;padding:15px;float:left;margin-top:50px;margin-bottom:50px;margin-left:15%;">
-        <form  action="{% url 'cor' %}" method="post ">
-        User id:<br>
-        <input class="inpt" type="text" name="username" maxlength="12">
+        <form  action="{% url 'my_view' %}" method="POST">
+         {% csrf_token %}
+            User id:<br>
+        <input class="inpt" type="text" name="username11" maxlength="12">
         <br>
         Password:<br>
-        <input type="password" name="password" >
+        <input type="password" name="password11" value="22">
         <br><br>
         <input type="submit" value="Submit">
         </form>

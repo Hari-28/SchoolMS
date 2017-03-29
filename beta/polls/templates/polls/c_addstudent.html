@@ -5,7 +5,7 @@ Correspondent
 {%endblock%}
 
 {%block menubar%}
-    <li><a href='#'>Adding members</a><ul><li><a href="{% url 'caddstaff'%}">Staff</a></li><li><a href='#'>Students</a></li><li><a href='#'>Faculty</a></li><li><a href="{% url 'caddreg'%}">Registar</a></li></ul></li>
+    <li><a href='#'>Adding members</a><ul><li><a href="{% url 'caddstaff'%}">Staff</a></li><li><a href='#'>Students</a></li><li><a href="{% url 'caddfac'%}">Faculty</a></li><li><a href="{% url 'caddreg'%}">Registar</a></li></ul></li>
 
     <li><a href='#'>View/Update details</a><ul><li><a href='##'>Staff</a></li><li><a href='#'>Students</a></li><li><a href='#'>Faculty</a></li><li><a href='#'>Registar</a></li><li><a href='#'>Head Registar</a></li></ul></li>
 
@@ -13,31 +13,59 @@ Correspondent
 
     <li><a href='#'>Fee Details</a><ul><li><a href='#'>Propose Fee structure</a></li><li><a href='#'>Set fees</a></li><li><a href='#'>View fee details</a></li></ul></li>
 
-<li><a href='#'>Approve Requests &nbsp;<span style="background-color:limegreen;padding:3px;text-align:right;">14</span></a><ul><li><a href='###'>Funds&nbsp;<span style="background-color:limegreen;padding:3px;">7</span></a></li><li><a href='#'>Approve staff&nbsp;<span style="background-color:limegreen;padding:3px;">3</span></a></li><li><a href='#'>Concession</a></li><li><a href='#'>Reimbursment&nbsp;<span style="background-color:limegreen;padding:3px;">4</span></a></li></ul></li>
+<li><a href='#'>Approve Requests &nbsp;<span style="background-color:limegreen;padding:3px;text-align:right;">14</span></a><ul><li><a href="{% url 'capp'%}">Funds&nbsp;<span style="background-color:limegreen;padding:3px;">7</span></a></li><li><a href="{% url 'capp'%}">Approve staff&nbsp;<span style="background-color:limegreen;padding:3px;">3</span></a></li><li><a href="{% url 'capp'%}">Concession</a></li><li><a href="{% url 'capp'%}">Reimbursment&nbsp;<span style="background-color:limegreen;padding:3px;">4</span></a></li></ul></li>
 {% endblock %}
 
 
 {% block sidebar %}
 <br>
-<a href="#11" style="text-decoration:none;">Pay Fees</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
-<a href="#" style="text-decoration:none;">Pay Salary</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
-<a href="#" style="text-decoration:none;">Update attendance / Grades</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
-<a href="#" style="text-decoration:none;">Generate Grade Cards</a><br>
+<a href="{% url 'cor' %}" style="text-decoration:none;">Pay Fees</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'cor' %}" style="text-decoration:none;">Pay Salary</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'cor' %}" style="text-decoration:none;">Update attendance / Grades</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'cor' %}" style="text-decoration:none;">Generate Grade Cards</a><br>
 
 <hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
 
-<a href="#" style="text-decoration:none;">Enter Financial Expenses</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
-<a href="#" style="text-decoration:none;">View Financial Report</a><br>
+<a href="{% url 'cor' %}" style="text-decoration:none;">Enter Financial Expenses</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'cor' %}" style="text-decoration:none;">View Financial Report</a><br>
 
 <hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
 
 
-<a href="#" style="text-decoration:none;">Add salary bonuses</a><br><br>
+<a href="{% url 'cor' %}" style="text-decoration:none;">Add salary bonuses</a><br><br>
 {% endblock %}
 
 {% block page_content %}
 <ul>
 <h1>Adding Student</h1>
+<form class="form-style-7" action="{% url 'cor'%}" method="get" >
+<ul>
+<li>
+    <label for="name">Name</label>
+    <input type="text" name="name" maxlength="100">
+    <span>Enter full name here</span>
+</li>
+<li>
+    <label for="email">Email</label>
+    <input type="email" name="email" maxlength="100">
+    </li>
+<li>
+    <label for="add">Address</label>
+    <textarea name="add" onkeyup="adjust_textarea(this)"></textarea>
+    <span>Enter Detailed address here</span>
+</li>
+
+    <li>
+    <label for="class">Class</label>
+    <input type="number" name="class" max="10" min="2" required>
+    </li>
+
+    <li>
+    <input type="submit" value="Submit Now" >
+</li>
+</ul>
+</form>
+
 </ul>
 
 {% endblock %}

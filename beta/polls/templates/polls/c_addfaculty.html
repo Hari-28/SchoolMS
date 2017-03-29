@@ -5,7 +5,7 @@ Correspondent
 {%endblock%}
 
 {%block menubar%}
-    <li><a href='#'>Adding members</a><ul><li><a href="{% url 'caddstaff'%}">Staff</a></li><li><a href="{% url 'caddstud'%}">Students</a></li><li><a href="{% url 'caddfac'%}">Faculty</a></li><li><a href='#'>Registar</a></li></ul></li>
+    <li><a href='#'>Adding members</a><ul><li><a href="{% url 'caddstaff'%}">Staff</a></li><li><a href="{% url 'caddstud'%}">Students</a></li><li><a href='#'>Faculty</a></li><li><a href="{% url 'caddreg'%}">Registar</a></li></ul></li>
 
     <li><a href='#'>View/Update details</a><ul><li><a href='##'>Staff</a></li><li><a href='#'>Students</a></li><li><a href='#'>Faculty</a></li><li><a href='#'>Registar</a></li><li><a href='#'>Head Registar</a></li></ul></li>
 
@@ -37,8 +37,8 @@ Correspondent
 
 {% block page_content %}
 <ul>
-<h1>Adding Registar</h1>
-<form class="form-style-7" action="{% url 'cor'%}" method="get" >
+<h1>Adding Faculty</h1>
+    <form class="form-style-7" action="{% url 'cor'%}" method="get" >
 <ul>
 <li>
     <label for="name">Name</label>
@@ -53,7 +53,7 @@ Correspondent
 <li>
     <label for="add">Address</label>
     <textarea name="add" onkeyup="adjust_textarea(this)"></textarea>
-    <span>Enter Detailed address here</span>
+    <span>Enter detailed address here</span>
 </li>
 <li>
     <input type="submit" value="Submit Now" >
@@ -61,4 +61,6 @@ Correspondent
 </ul>
 </form>
 </ul>
+
+
 {% endblock %}
