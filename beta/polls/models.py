@@ -1,5 +1,5 @@
 from django.db import models
-
+import datetime
 class User(models.Model):
 
    gender = ( ( 'M' , 'Male' ) , ( 'F' , 'Female' ) )
@@ -12,10 +12,12 @@ class User(models.Model):
    sex = models.CharField( max_length = 1,choices = gender )
    staffID = models.ForeignKey('Staff',null = True )
    studentID = models.ForeignKey('Student',null=True)
+   isParent = models.IntegerField(default=0)
    def login(self):
 		user=User.objects.get(userName=self.userName, password= self.password)
 		staff= user.staffID 
 		return staff
+		
    def getStaffRole(self):
 		return self.staffID.position
 		
@@ -52,7 +54,6 @@ class Staff(models.Model):
 		x.save()
 		return 1
 		
-		
    def updateStaff(self,user,ID):
 		s = Staff.objects.get(staffID=ID)
 		x = User.objects.get(staffID=s)
@@ -75,8 +76,58 @@ class Staff(models.Model):
       a = Address(addrID = addrID ,address=address , pin = pin , state = state )		
       a.save()
       return addrID
+   def addStudent(firstName,middleName,lastName,sex,dob,classNumber,hasVan,currentYear):
+   
+		s = Student.objects.filter().count()+1
+		x = Student(classNumber=classNumber,hasVan=hasVan,currentYear=currentYear,studentID=s)
+		x.save()
+		id = Student.objects.get(studentID=s)
+		id.initBalance()
 		
+		x = User(firstName=firstName,middleName=middleName,lastName=lastName,sex=sex,dob=dob,staffID=id)
+		x.save()
+		return s
+
+   def addParent(firstName,middleName,lastName,relation,student,aID,cID):
+      u = User(firstName=firstName,middleName=middleName,lastName=lastName,studentID=student,isParent=1)
+      u.save()
+      p = Parent(relation=relation,aID=aID,cID=cID,studentID=student)
+	  
+   def setContactStaff(sid,cid):
+       s = Staff.objects.get(staffID=sid)
+       cid = Contact.objects.get(cID=cid)
+       s.cID = cid
+       s.save()
+   def setAddressStaff(sid,aid):
+      s = Staff.objects.get(staffID=sid)
+      cid = Address.objects.get(aID=aid)
+      s.aID = aid
+      s.save()
 		
+   def approveFund(fundID):
+      f=FundRequest(fundID=fundID)
+      f.status=1
+      f.save()
+      x=FinancialReport(year = datetime.date.today().year , amount = -(x.amount), reason = x.reason)  
+      x.save()
+      return 1
+	  
+	  
+   def approveRembursment(remID):
+      f=RemReqest(remID=remID)
+      f.status=1
+      f.save()
+      x=FinancialReport(year = datetime.date.today().year , amount = -(x.amount), reason = x.reason)  
+      x.save()
+      return 1
+'''
+   def approveConcession (fundID):
+      f=FundRequest(fundID=fundID)
+      f.status=1
+	  f.save()
+      x.save()
+	  return 1
+'''	
 class Contact(models.Model):
    cID = models.IntegerField()
    email = models.EmailField( max_length=100 , null=True)
@@ -173,6 +224,7 @@ class ConReqest(models.Model):
 		f = ConRequest(conID = x,amount=amount,reason=reason,status=0,studentID=stu)
 		f.save()
 		return x
+		
 class RemReqest(models.Model):
 	remID = models.IntegerField(primary_key=True)
 	status = models.IntegerField()
@@ -184,6 +236,9 @@ class RemReqest(models.Model):
 		f = RemRequest(remID=x,amount=amount,reason=reason,status=0,studentID = stu)
 		f.save()
 		return x
-		
+
 class FinancialReport(models.Model):
-	year = models.IntegerField(primary_key=True)
+	year = models.IntegerField()
+	amount = models.IntegerField()
+	reason = models.CharField(max_length=100)
+	 
