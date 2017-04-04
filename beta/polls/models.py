@@ -16,6 +16,9 @@ class User(models.Model):
 		user=User.objects.get(userName=self.userName, password= self.password)
 		staff= user.staffID 
 		return staff
+   def getStaffRole(self):
+		return self.staffID.position
+		
    def getName(self):
 		return self.firstName+' '+self.middleName+' '+self.	lastName
 	
@@ -23,18 +26,20 @@ class User(models.Model):
 	
 
 class Staff(models.Model):
-   positions = ( ('A','Accountant') ,  ('H','Head Accountant') , ('C', 'Correspondent') )
+   positions = ( (1,'Accountant') ,  (2,'Head Accountant') , (3, 'Correspondent') )
    staffID = models.IntegerField(primary_key=True)
    salary = models.IntegerField(default = 0,null=True)
-   position = models.CharField(max_length = 50, null = True ,choices = positions )
+   position = models.IntegerField( null = True ,choices = positions )
+   salaryToBePaid = models.IntegerField(null = True, default =0 )
    joinDate = models.DateField( null=True )
    cID = models.ForeignKey('Contact',null = True)
    addrID = models.ForeignKey('Address', null = True)
-    
+     
    def registerStaff(self,staff,username):
 		x=Staff.objects.filter().count()+1
 		obj = Staff(position =staff.position , salary = staff.position , joinDate = staff.joinDate , staffID = x ) 
 		''' cID = staff.cID , addrID = staff.addrID ,'''
+		obj.salaryToBePaid=10;
 		obj.save()
 		obj= Staff.objects.get(staffID=x)
 		user = User(staffID=obj,userName=username, password ='password')
@@ -43,14 +48,13 @@ class Staff(models.Model):
 		
    def setHeadAccountant(self,ID):
 		x= Staff.objects.get(staffID=ID)
-		x.position='H'
+		x.position=2
 		x.save()
 		return 1
 		
 		
    def updateStaff(self,user,ID):
 		s = Staff.objects.get(staffID=ID)
-		
 		x = User.objects.get(staffID=s)
 		x.firstName = user.firstName
 		x.middleName = user.middleName
@@ -72,12 +76,12 @@ class Staff(models.Model):
       a.save()
       return addrID
 		
+		
 class Contact(models.Model):
    cID = models.IntegerField()
    email = models.EmailField( max_length=100 , null=True)
    phoneNumber = models.IntegerField( )
 
-		
 class Address(models.Model):
    addrID = models.IntegerField( primary_key=True)
    address = models.CharField(max_length = 50 , null = True)
@@ -146,3 +150,40 @@ class Subject (models.Model):
 	subjectName = models.CharField(max_length=50)
 	lessonPlan = models.CharField( max_length=50 )
 	
+class FundRequest(models.Model):
+	fundID = models.IntegerField(primary_key=True)
+	status = models.IntegerField()
+	reason = models.CharField(max_length=100)
+	amount = models.IntegerField()
+	def addReq(amount,reason):
+		x=FundRequest.objects.filter().count()+1
+		f = FundRequest(fundID=x,amount=amount,reason=reason,status=0)
+		f.save()
+		return x
+		
+class ConReqest(models.Model):
+	conID =models.IntegerField(primary_key=True)
+	status = models.IntegerField()
+	reason = models.CharField(max_length=100)
+	amount = models.IntegerField()
+	studentID = models.ForeignKey('Student')
+	def addReq(studentID,amount,reason):
+		x=ConRequest.objects.filter().count()+1		
+		stu = Student.get.objects(studentID=staffID)
+		f = ConRequest(conID = x,amount=amount,reason=reason,status=0,studentID=stu)
+		f.save()
+		return x
+class RemReqest(models.Model):
+	remID = models.IntegerField(primary_key=True)
+	status = models.IntegerField()
+	reason = models.CharField(max_length=100)
+	amount = models.IntegerField()
+	def addReq(studentID,amount,reason):
+		x=RemRequest.objects.filter().count()+1
+		stu = Student.get.objects(studentID=staffID)
+		f = RemRequest(remID=x,amount=amount,reason=reason,status=0,studentID = stu)
+		f.save()
+		return x
+		
+class FinancialReport(models.Model):
+	year = models.IntegerField(primary_key=True)
