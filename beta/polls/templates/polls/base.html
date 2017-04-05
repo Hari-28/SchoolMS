@@ -12,6 +12,8 @@
        <meta name="viewport" content="width=device-width, initial-scale=1">
        <link rel="stylesheet" type="text/css" href="{% static 'myapp/basic2.css' %}"/>
        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
         <link rel="stylesheet" href="/lib/w3.css">
 		<style>
 				#header{
@@ -132,7 +134,7 @@
 
         <style type="text/css">
                     .form-style-7{
-                        max-width:400px;
+                        max-width:600px;
 
                         background:#fff;
                         border-radius:2px;
@@ -150,12 +152,13 @@
                     .form-style-7 ul{
                         list-style:none;
                         padding:0;
+
                         margin:0;
                     }
                     .form-style-7 li{
                         display: block;
                         padding: 9px;
-                        border:1px solid #DDDDDD;
+                        border:1px solid #BBBBBB;
                         margin-bottom: 15px;
                         border-radius: 3px;
                     }
@@ -242,6 +245,21 @@
                         background: #6B9FFF;
                         color:#fff;
                     }
+
+                    #btn{
+                    background: #2471FF;
+                        border: none;
+                        padding: 10px 20px 10px 20px;
+                        border-bottom: 3px solid #5994FF;
+                        border-radius: 3px;
+                        color: #D2E2FF;
+                    }
+
+                    #btn:hover{
+                    background: #2471FF;
+                        background: #6B9FFF;
+                        color:#fff;
+                    }
           </style>
 
         <script type="text/javascript">
@@ -250,6 +268,9 @@ function adjust_textarea(h) {
     h.style.height = "20px";
     h.style.height = (h.scrollHeight)+"px";
 }
+
+
+
 </script>
 
 

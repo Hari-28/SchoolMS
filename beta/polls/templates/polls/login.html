@@ -15,6 +15,29 @@
 
        <meta name="viewport" content="width=device-width, initial-scale=1">
        <style>
+                #header{
+				  background:blueviolet;
+				  width:100%;
+				  padding:2px;
+				  font-size:24px;color:white;
+				  font-family:arial;
+				  line-height:3px;
+				  text-align:center;
+				  margin-bottom:10px;
+				}
+
+				#footer{
+				  clear:both;
+				  background:black;
+				  width:100%;
+				  padding:2px;
+				  font-size:10px;color:white;
+				  line-height:3px;
+				  text-align:center;
+				  margin-top:10px;
+				}
+
+
             * {box-sizing:border-box}
             body {font-family: Verdana,sans-serif;margin:0}
             .mySlides {display:none}
@@ -187,16 +210,16 @@
 
 
 
-    <div style="border:2px solid blueviolet;max-width:300px;padding:15px;float:left;margin-top:50px;margin-bottom:50px;margin-left:15%;">
-        <form  action="{% url 'my_view' %}" method="POST">
+    <div style="border:2px solid blueviolet;max-width:300px;padding:15px;float:left;margin-top:150px;margin-bottom:50px;margin-left:15%;">
+        <form  action="{% url 'login' %}" method="POST">
          {% csrf_token %}
             User id:<br>
-        <input class="inpt" type="text" name="username11" maxlength="12">
+        <input class="inpt" type="text" name="username11" maxlength="12" required>
         <br>
         Password:<br>
-        <input type="password" name="password11" value="22">
+        <input type="password" name="password11" value="22" required>
         <br><br>
-        <input type="submit" value="Submit">
+        <button id="btn" type="submit" name="div" value="login" >LOG IN</button>
         </form>
     </div>
 

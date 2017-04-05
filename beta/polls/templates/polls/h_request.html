@@ -1,0 +1,93 @@
+{% extends 'polls/base.html' %}
+
+{% block title%}
+Head registar
+{%endblock%}
+
+
+{%block menubar%}
+<li><a href='#'>Adding members</a><ul><li><a href="{% url 'haddstaff' %}">Staff</a></li><li><a href="{% url 'haddstud' %}">Students</a></li><li><a href="{% url 'haddfac' %}">Faculty</a></li></ul></li>
+
+    <li><a href='#'>View/Update details</a><ul><li><a href='##'>Staff</a></li><li><a href='#'>Students</a></li><li><a href='#'>Faculty</a></li></ul></li>
+
+    <li><a href='#'>Requests </a><ul><li><a href='#'>Funds</a></li><li><a href='#'>Concession</a></li><li><a href='#'>Reimbursment</a></li></ul></li>
+
+    <li><a href='#'>Fee Details</a><ul><li><a href='#'>Propose Fee structure</a></li><li><a href='#'>Set fees</a></li><li><a href='#'>View fee details</a></li></ul></li>
+{% endblock %}
+
+
+{% block sidebar %}
+
+<br>
+
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Enter Financial Expenses</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">View Financial Report</a><br>
+
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Pay Salary</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Pay Fees</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Update attendance / Grades</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Generate Grade Cards</a><br>
+<br>
+{% endblock %}
+
+
+{% block page_content %}
+<ul>
+<h1>Requests page : Funds</h1>
+<form class="form-style-7" action="{% url 'hreq'%}" method="POST" >
+{% csrf_token %}
+    <ul>
+
+<li>
+    <label for="amount">Amount</label>
+    <input type="number" name="amount" maxlength="10" required>
+    <span>Enter in Indian Rupees</span>
+</li>
+<li>
+    <label for="reason">Reason</label>
+    <textarea name="reason" onkeyup="adjust_textarea(this)" required></textarea>
+    <span>Enter reason or remarks here</span>
+</li>
+    <li>
+        <button id="btn" type="submit" name="div" value="funds" >Submit Now</button>
+</li>
+</ul>
+</form>
+</ul>
+
+<ul>
+<h1>Requests page : Concession</h1>
+<form class="form-style-7" action="{% url 'hreq'%}" method="POST" >
+    {% csrf_token %}
+<ul>
+<li>
+    <label for="name">Name</label>
+    <input type="text" name="name" maxlength="100" required>
+    <span>Enter full name here</span>
+</li>
+<li>
+    <label for="reason">Reason</label>
+    <textarea name="reason" onkeyup="adjust_textarea(this)" required></textarea>
+    <span>Enter reason or remarks here</span>
+</li>
+    <li>
+    <label for="class">Class</label>
+    <input type="number" name="class" max="10" required>
+    </li>
+    <li>
+    <label for="amount">Amount</label>
+    <input type="number" name="amount" maxlength="10" required>
+    <span>Enter in Indian Rupees</span>
+</li>
+
+    <li>
+    <button id="btn" type="submit" name="div" value="concession" >Submit Now</button>
+</li>
+</ul>
+</form>
+
+
+</ul>
+
+{% endblock %}

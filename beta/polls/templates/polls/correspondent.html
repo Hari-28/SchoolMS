@@ -6,11 +6,11 @@ Correspondent
 
 
 {%block menubar%}
-    <li><a href='#'>Adding members</a><ul><li><a href='c_addstaff.html'>Staff</a></li><li><a href='c_addstudent.html'>Students</a></li><li><a href='c_addfaculty.html'>Faculty</a></li><li><a href='c_addregistar.html'>Registar</a></li></ul></li>
+    <li><a href='#'>Adding members</a><ul><li><a href="{% url 'caddstaff'%}">Staff</a></li><li><a href="{% url 'caddstaff'%}">Students</a></li><li><a href="{% url 'caddfac'%}">Faculty</a></li><li><a href="{% url 'caddreg'%}">Registar</a></li></ul></li>
 
     <li><a href='#'>View/Update details</a><ul><li><a href='##'>Staff</a></li><li><a href='#'>Students</a></li><li><a href='#'>Faculty</a></li><li><a href='#'>Registar</a></li><li><a href='#'>Head Registar</a></li></ul></li>
 
-        <li><a href='#'>Requests </a><ul><li><a href="{% url 'creq'%}">Funds</a></li><li><a href="{% url 'creq'%}">Concession</a></li><li><a href="{% url 'creq'%}">Reimbursment</a></li></ul></li>
+    <li><a href='#'>Requests </a><ul><li><a href="{% url 'creq'%}">Funds</a></li><li><a href="{% url 'creq'%}">Concession</a></li><li><a href="{% url 'creq'%}">Reimbursment</a></li></ul></li>
 
     <li><a href='#'>Fee Details</a><ul><li><a href='#'>Propose Fee structure</a></li><li><a href='#'>Set fees</a></li><li><a href='#'>View fee details</a></li></ul></li>
 
@@ -19,9 +19,9 @@ Correspondent
 
 
 {% block sidebar %}
-<br>
-{{username}}
-<br>
+
+{{username}}{{password}}
+
 <br>
 
 <a href="#11" style="text-decoration:none;">Enter Financial Expenses</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
@@ -40,74 +40,76 @@ Correspondent
 {% endblock %}
 
 {% block page_content %}
-
 <div id="11" style="margin-bottom:10px;" >
 <ul>
 <u><h1>Enter Financial expenses</h1></u>
-<form class="form-style-7" action="{% url 'cor'%}" method="get" >
+<form class="form-style-7" action="{% url 'cor'%}" method="POST" >{% csrf_token %}
 <ul>
 
     <li>
     <label for="filename">Upload</label>
-    <input type="file" name="filename" accept=".pdf,.doc,.docx" style="margin-bottom:3px;margin-top:3px;">
+    <input type="file" name="filename" accept=".pdf,.doc,.docx" style="margin-bottom:3px;margin-top:3px;" required>
     <span>Upload .pdf,.doc,.docx files here</span>
 </li>
     <li>
     <label for="remark">Remark(s)</label>
-    <textarea name="remark" onkeyup="adjust_textarea(this)"></textarea>
+    <textarea name="remark" onkeyup="adjust_textarea(this)" required></textarea>
     <span>Enter reason or remarks here</span>
 </li>
     <li>
-    <input type="submit" value="Submit Now" >
+    <button id="btn" type="submit" name="div" value="expenses" >Submit Now</button>
 </li>
 </ul>
 </form>
 </ul>
 </div>
 
-<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px red inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px white inset;">
 
 <div id="12" style="margin-bottom:10px;" >
 <h1>Financial Analysis</h1>
     Tabular and Pictorial representation of Financial status of the system
 </div>
 
-<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px green inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px white inset;">
+
 
 <div id="13" style=" margin-bottom:10px;padding:10px;" >
 
     <ul>
 <h1>Pay Salary</h1>
-<form class="form-style-7" action="{% url 'cor'%}" method="get" >
+<form class="form-style-7" action="{% url 'cor'%}" method="POST" >{% csrf_token %}
 <ul>
 
     <li>
     <label for="name">Name</label>
-    <input type="text" name="name" maxlength="100">
+    <input type="text" name="name" maxlength="100" required>
     <span>Enter full name here</span>
 </li>
     <li>
     <label for="id">Id </label>
-    <input type="text" name="id">
+    <input type="text" name="id" required>
     </li>
 <li>
     <label for="amount1">Salary</label>
-    <input type="number" name="amount1" maxlength="10" value="27250" readonly>
+    <input type="number" name="salary" maxlength="10" value="27250" readonly>
     <span>Enter in Indian Rupees</span>
 </li>
 
     <li>
     <label for="amount">Salary paid</label>
-    <input type="number" name="amount" maxlength="10">
+    <input type="number" name="amount" maxlength="10" required>
     <span>Enter in Indian Rupees</span>
 </li>
 <li>
     <label for="remark">Remark(s)</label>
-    <textarea name="remark" onkeyup="adjust_textarea(this)"></textarea>
+    <textarea name="remark" onkeyup="adjust_textarea(this)"   value="none" required></textarea>
     <span>Enter reason or remarks here</span>
 </li>
     <li>
-    <input type="submit" value="Submit Now" >
+    <button id="btn" type="submit" name="div" value="salary" >Submit Now</button>
 </li>
 </ul>
 </form>
@@ -115,40 +117,46 @@ Correspondent
 
 
 </div>
-<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px red inset;">
+
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px white inset;">
+
 <div id="14" style=" margin-bottom:10px;" >aa 44</div>
-<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px green inset;">
+
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px white inset;">
+
 <div id="15" style="margin-bottom:10px;" >
     <ul>
 <h1>Pay fees</h1>
-<form class="form-style-7" action="{% url 'cor'%}" method="get" >
+<form class="form-style-7" action="{% url 'cor'%}" method="POST" >{% csrf_token %}
 <ul>
 
     <li>
     <label for="name">Name</label>
-    <input type="text" name="name" maxlength="100">
+    <input type="text" name="name" maxlength="100" required>
     <span>Enter full name here</span>
 </li>
     <li>
     <label for="class">Class</label>
-    <input type="number" name="class" max="10">
+    <input type="number" name="class" max="10" required>
     </li>
     <li>
     <label for="roll">Roll id </label>
-    <input type="text" name="roll">
+    <input type="text" name="roll" required>
     </li>
 <li>
     <label for="amount">Amount</label>
-    <input type="number" name="amount" maxlength="10">
+    <input type="number" name="amount" maxlength="10" required>
     <span>Enter in Indian Rupees</span>
 </li>
 <li>
     <label for="remark">Remark(s)</label>
-    <textarea name="remark" onkeyup="adjust_textarea(this)"></textarea>
+    <textarea name="remark" onkeyup="adjust_textarea(this)" required></textarea>
     <span>Enter reason or remarks here</span>
 </li>
     <li>
-    <input type="submit" value="Submit Now" >
+    <button id="btn" type="submit" name="div" value="fees" >Submit Now</button>
 </li>
 </ul>
 </form>
@@ -156,41 +164,64 @@ Correspondent
 
 </div>
 
-<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px red inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px white inset;">
+
 
 <div id="16" style=" margin-bottom:10px; " >
 
     <ul>
 <h1>Update Attendance & grades </h1>
-<form class="form-style-7" action="{% url 'cor'%}" method="get" >
+<form class="form-style-7" action="{% url 'cor'%}" method="POST" >{% csrf_token %}
 <ul>
 
     <li>
     <label for="class">Class</label>
-    <input type="number" name="class" max="10">
+    <input type="number" name="class" max="10" required>
     </li>
 <li>
     <label for="sec">Section</label>
-    <input type="text" name="sec" maxlength="100">
+    <input type="text" name="section" maxlength="100" required>
     <span>Enter valid section name</span>
 </li>
     <li>
     <label for="filename">Upload</label>
-    <input type="file" name="filename" accept=".pdf,.doc,.docx" style="margin-bottom:3px;margin-top:3px;">
+    <input type="file" name="filename" accept=".pdf,.doc,.docx" style="margin-bottom:3px;margin-top:3px;" required>
     <span>Upload .pdf,.doc,.docx files here</span>
 </li>
     <li>
     <label for="remark">Remark(s)</label>
-    <textarea name="remark" onkeyup="adjust_textarea(this)"></textarea>
+    <textarea name="remark" onkeyup="adjust_textarea(this)" required></textarea>
     <span>Enter reason or remarks here</span>
 </li>
     <li>
-    <input type="submit" value="Submit Now" >
+    <button id="btn" type="submit" name="div" value="attend">Submit Now</button>
 </li>
 </ul>
 </form>
 </ul>
 </div>
-<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px green inset;">
-<div id="17" style="background-color:rgba(255,0,0,0.3);min-height:700px;margin-bottom:10px;" >aa 77</div>
+
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px white inset;">
+
+<div id="17" style=" margin-bottom:10px; ">
+    <h1>Generate grade card</h1>
+    <form class="form-style-7" action="{% url 'cor'%}" method="POST" >{% csrf_token %}
+<ul>
+<li>
+    <label for="name">Name</label>
+    <input type="text" name="name" required>
+    <span>Enter student full name</span>
+    </li>
+    <li>
+    <label for="class">Class</label>
+    <input type="number" name="class" max="10" required>
+    </li>
+    <li>
+    <button id="btn" type="submit" name="div" value="grade" >Submit Now</button>
+</li>
+</ul>
+</form>
+</div>
 {% endblock %}

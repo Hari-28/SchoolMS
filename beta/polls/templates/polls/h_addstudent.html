@@ -1,0 +1,69 @@
+{% extends 'polls/base.html' %}
+
+{% block title%}
+Head registar
+{%endblock%}
+
+
+{%block menubar%}
+<li><a href='#'>Adding members</a><ul><li><a href="{% url 'haddstaff' %}">Staff</a></li><li><a href="#">Students</a></li><li><a href="{% url 'haddfac' %}">Faculty</a></li></ul></li>
+
+    <li><a href='#'>View/Update details</a><ul><li><a href='##'>Staff</a></li><li><a href='#'>Students</a></li><li><a href='#'>Faculty</a></li></ul></li>
+
+    <li><a href='#'>Requests </a><ul><li><a href="{% url 'hreq'%}">Funds</a></li><li><a href="{% url 'hreq'%}">Concession</a></li><li><a href="{% url 'hreq'%}">Reimbursment</a></li></ul></li>
+
+    <li><a href='#'>Fee Details</a><ul><li><a href='#'>Propose Fee structure</a></li><li><a href='#'>Set fees</a></li><li><a href='#'>View fee details</a></li></ul></li>
+{% endblock %}
+
+
+{% block sidebar %}
+
+
+<br>
+
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Enter Financial Expenses</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">View Financial Report</a><br>
+
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Pay Salary</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Pay Fees</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Update attendance / Grades</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'hreg' %}" style="text-decoration:none;">Generate Grade Cards</a><br>
+<br>
+{% endblock %}
+
+{% block page_content %}
+<ul>
+<h1>Adding Student</h1>
+<form class="form-style-7" action="{% url 'haddstud'%}" method="POST" >
+{% csrf_token %}
+    <ul>
+    <li>
+    <label for="name">Name</label>
+    <input type="text" name="name" maxlength="100" required>
+    <span>Enter full name here</span>
+</li>
+<li>
+    <label for="email">Email</label>
+    <input type="email" name="email" maxlength="100" required>
+    </li>
+<li>
+    <label for="add">Address</label>
+    <textarea name="add" onkeyup="adjust_textarea(this)" required></textarea>
+    <span>Enter Detailed address here</span>
+</li>
+
+    <li>
+    <label for="class">Class</label>
+    <input type="number" name="class" max="10" min="2" required>
+    </li>
+
+    <li>
+    <input type="submit" value="Submit Now" >
+</li>
+</ul>
+</form>
+
+</ul>
+
+{% endblock %}

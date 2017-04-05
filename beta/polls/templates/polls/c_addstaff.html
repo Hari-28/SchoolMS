@@ -20,46 +20,126 @@ Correspondent
 
 {% block sidebar %}
 <br>
-<a href="{% url 'cor'  %}"  style="text-decoration:none;">Pay Fees</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
-<a href="{% url 'cor' %}" style="text-decoration:none;">Pay Salary</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
-<a href="{% url 'cor' %}" style="text-decoration:none;">Update attendance / Grades</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
-<a href="{% url 'cor' %}" style="text-decoration:none;">Generate Grade Cards</a><br>
-
-<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
 
 <a href="{% url 'cor' %}" style="text-decoration:none;">Enter Financial Expenses</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
 <a href="{% url 'cor' %}" style="text-decoration:none;">View Financial Report</a><br>
 
 <hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
-
-
+<a href="{% url 'cor' %}" style="text-decoration:none;">Pay Salary</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
 <a href="{% url 'cor' %}" style="text-decoration:none;">Add salary bonuses</a><br><br>
+<hr style="height:10px;border:0;box-shadow:0px 10px 10px -10px black inset;">
+<a href="{% url 'cor' %}" style="text-decoration:none;">Pay Fees</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'cor' %}" style="text-decoration:none;">Update attendance / Grades</a><hr style="border:0;height:1px;background-image:-webkit-linear-gradient(left,white,#f0f0f0,#8c8b8b,blueviolet);background-image:-moz-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-ms-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);background-image:-o-linear-gradient(left,#f0f0f0,#8c8b8b,#f0f0f0);">
+<a href="{% url 'cor' %}" style="text-decoration:none;">Generate Grade Cards</a><br>
 {% endblock %}
 
 {% block page_content %}
 <ul>
 <h1>Adding Staff</h1>
-<form class="form-style-7" action="{% url 'cor'%}" method="get" >
+<form class="form-style-7" action="{% url 'caddstaff'%}" method="POST" >
+{% csrf_token %}
 <ul>
-<li>
-    <label for="name">Name</label>
-    <input type="text" name="name" maxlength="100">
-    <span>Enter full name here</span>
-</li>
-<li>
+    <li>
+    <label for="firstname"> First Name</label>
+    <input type="text" name="firstname" maxlength="100" required>
+    </li>
+    <li style="float:left;width:250px;">
+    <label for="middlename">Middle Name</label>
+    <input type="text" name="middlename" maxlength="100" >
+    </li>
+    <li style="float:left;width:250px;margin-left:60px;">
+    <label for="lastname"> Last Name</label>
+    <input type="text" name="lastname" maxlength="100" >
+    </li>
+     <li style="float:left;width:250px;">
+    <label for="dob">Date of Birth</label>
+    <input type="date" name="dob" >
+         <span>Verified Date of Birth to be Submitted</span>
+    </li>
+    <li style="float:left;width:250px;margin-left:60px;">
+    <label for="position">Position</label>
+        <select name="position">
+            <option value="">------------Select Position------------</option>
+    <option value="Accountant">Accountant</option>
+    <option value="Faculty">Faculty</option>
+    </select>
+        <span>Choose from the dropdown </span>
+    </li>
+
+
+    <li style="float:left;width:250px;">
     <label for="email">Email</label>
-    <input type="email" name="email" maxlength="100">
-    <span>Enter a valid email address</span>
-</li>
-<li>
+    <input type="email" name="email" maxlength="100" required>
+        <span>Give valid mail id</span>
+    </li>
+
+    <li style="float:left;width:250px;margin-left:60px;">
+    <label for="mobile">Mobile</label>
+    <input type="text" name="mobile" pattern="[7-9][0-9]{9}" title="Give valid mobile number" required>
+    <span>Give valid mobile number</span>
+    </li>
+
+ <li style="clear:both;">
     <label for="add">Address</label>
-    <textarea name="add" onkeyup="adjust_textarea(this)"></textarea>
+    <textarea name="add" onkeyup="adjust_textarea(this)" required></textarea>
     <span>Enter Detailed address here</span>
 </li>
-<li>
+
+
+    <li style="float:left;width:250px;">
+        <label for="state">State</label>
+<select name=state>
+<option value="">------------Select State------------</option>
+<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+<option value="Andhra Pradesh">Andhra Pradesh</option>
+<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+<option value="Assam">Assam</option>
+<option value="Bihar">Bihar</option>
+<option value="Chandigarh">Chandigarh</option>
+<option value="Chhattisgarh">Chhattisgarh</option>
+<option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+<option value="Daman and Diu">Daman and Diu</option>
+<option value="Delhi">Delhi</option>
+<option value="Goa">Goa</option>
+<option value="Gujarat">Gujarat</option>
+<option value="Haryana">Haryana</option>
+<option value="Himachal Pradesh">Himachal Pradesh</option>
+<option value="Jammu and Kashmir">Jammu and Kashmir</option>
+<option value="Jharkhand">Jharkhand</option>
+<option value="Karnataka">Karnataka</option>
+<option value="Kerala">Kerala</option>
+<option value="Lakshadweep">Lakshadweep</option>
+<option value="Madhya Pradesh">Madhya Pradesh</option>
+<option value="Maharashtra">Maharashtra</option>
+<option value="Manipur">Manipur</option>
+<option value="Meghalaya">Meghalaya</option>
+<option value="Mizoram">Mizoram</option>
+<option value="Nagaland">Nagaland</option>
+<option value="Orissa">Orissa</option>
+<option value="Pondicherry">Pondicherry</option>
+<option value="Punjab">Punjab</option>
+<option value="Rajasthan">Rajasthan</option>
+<option value="Sikkim">Sikkim</option>
+<option value="Tamil Nadu">Tamil Nadu</option><option value="Telangana">Telangana</option>
+<option value="Tripura">Tripura</option>
+<option value="Uttaranchal">Uttaranchal</option>
+<option value="Uttar Pradesh">Uttar Pradesh</option>
+<option value="West Bengal">West Bengal</option>
+</select>    </li>
+
+    <li style="float:left;width:250px;margin-left:60px;">
+    <label for="pin">Pincode</label>
+    <input type="text" name="pin" pattern="[1-9]{6}" title="Give valid pincode" required>
+    </li>
+
+    <li style="clear:both">
+        <label for="salary"><span style="color:limegreen;">Salary</span></label>
+    <input type="text" name="salary" pattern="[1-9][0-9]{1-6}" title="Give valid amount" required>
+    </li>
+
+    <li>
     <input type="submit" value="Submit Now" >
 </li>
+</ul></form>
 </ul>
-</form>
-</ul>
-{% endblock %}
+ {% endblock %}
