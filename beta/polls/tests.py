@@ -1,12 +1,12 @@
 from django.test import TestCase
-from .models import User,Staff,FeeStruct,Student,Contact, Address,Parent
+from .models import Person,Staff,FeeStruct,Student,Contact, Address,Parent
 
 
 # Create your tests here.
 	
 
 
-class UserLoginTest(TestCase):
+class PersonLoginTest(TestCase):
     
 	def test_login(self):
 		obj2=Staff(salary=10,staffID=3)
@@ -16,15 +16,15 @@ class UserLoginTest(TestCase):
 		obj2=Staff(staffID=1)
 		obj2.save()
 		staff = Staff.objects.get(staffID=1)
-		obj=User(userName='test',password='test',staffID=staff)
+		obj=Person(userName='test',password='test',staffID=staff)
 		obj.save()
-		t1 = User.objects.get( userName='test',password='test' )
+		t1 = Person.objects.get( userName='test',password='test' )
 		t2 = t1.login()
 		#self.assertEqual( t2.salary , 10 )
 	def test_name(self):
-		obj = User(userName='hi',firstName = 'test', middleName = 'my' , lastName = 'name')
+		obj = Person(userName='hi',firstName = 'test', middleName = 'my' , lastName = 'name')
 		obj.save()
-		user = User.objects.get(userName='hi')
+		user = Person.objects.get(userName='hi')
 		self.assertEqual(user.getName() , 'test my name')
 		
 	
@@ -59,10 +59,9 @@ class DetailsCheck(TestCase):
 			obj = Staff(staffID=1,salary=20)
 			obj.save()
 			obj2 = Staff(salary=20,position = 2)	
-
 			O=Staff.objects.get(staffID=1)
 			p=O.registerStaff(obj2,'tests')
-			ob = User.objects.get(userName ='tests')
+			ob = Person.objects.get(userName ='tests')
 			self.assertEqual(ob.getStaffRole(),2)
 		
 		
@@ -71,10 +70,9 @@ class updateStaff(TestCase) :
 			obj = Staff(staffID=1,salary=20)
 			obj.save()
 			obj2 = Staff(salary=20)	
-
 			O=Staff.objects.get(staffID=1)
 			p=O.registerStaff(obj2,'tests')
-			ob = User.objects.get(userName ='tests')
+			ob = Person.objects.get(userName ='tests')
 			self.assertEqual(ob.userName,'tests')
 			
 			
@@ -94,12 +92,12 @@ class updateStaff(TestCase) :
 			acc.save()
 			n = Staff(salary =2 )
 			
-			a = User()
+			a = Person()
 			a.StaffID =1
 			a.save()
 			
 			
-			x= User()
+			x= Person()
 			x.firstName = 'test'
 			x.middleName = 'for'
 			x.lastName = 'name'
@@ -109,7 +107,7 @@ class updateStaff(TestCase) :
 			acc.registerStaff(n,'a')
 			
 			acc.updateStaff(x,2)
-			x = User.objects.get(firstName='test')
+			x = Person.objects.get(firstName='test')
 			self.assertEqual(x.middleName,'for')
 			
 			
@@ -128,6 +126,24 @@ class AddStudent(TestCase):
 		currentYear = 2017
 		st= s.addStudent(firstName,middleName,lastName,sex,dob,classNumber,hasVan,currentYear)
 		self.assertEqual(1,st)
+		
+		
+	def test_addStudent2(self):
+		s = Staff(salary = 1 , staffID = 1)
+		s.save()
+		s = Staff.objects.get(staffID = 1)
+		firstName = 'a'
+		middleName = 'b'
+		lastName = 'c'
+		sex = 'M'
+		dob = '2006-12-19'
+		hasVan = 1
+		classNumber = 2
+		currentYear = 2017
+		st= s.addStudent(firstName,middleName,lastName,sex,dob,classNumber,hasVan,currentYear)
+		
+		p=Person.objects.get(firstName='a')
+		self.assertEqual(p.middleName,'b')
 	def test_create_contact(self):
 		sta = Staff(salary=2)
 		sta.save()

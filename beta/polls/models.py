@@ -1,20 +1,21 @@
 from django.db import models
-import datetime
-class User(models.Model):
 
-   gender = ( ( 'M' , 'Male' ) , ( 'F' , 'Female' ) )
+import datetime
+
+class Person(models.Model):
+
    firstName = models.CharField(max_length = 50)
    middleName = models.CharField(max_length = 50)
    lastName = models.CharField(max_length = 50)
    userName = models.CharField(max_length=50, primary_key=True	)
    password = models.CharField(max_length = 50)
    dob = models.DateField(null=True)
-   sex = models.CharField( max_length = 1,choices = gender )
+   sex = models.CharField( max_length = 1 ,null=True)
    staffID = models.ForeignKey('Staff',null = True )
    studentID = models.ForeignKey('Student',null=True)
    isParent = models.IntegerField(default=0)
    def login(self):
-		user=User.objects.get(userName=self.userName, password= self.password)
+		user=Person.objects.get(userName=self.userName, password= self.password)
 		staff= user.staffID 
 		return staff
 		
@@ -40,14 +41,16 @@ class Staff(models.Model):
    def registerStaff(self,staff,username):
 		x=Staff.objects.filter().count()+1
 		obj = Staff(position =staff.position , salary = staff.position , joinDate = staff.joinDate , staffID = x ) 
+		
 		''' cID = staff.cID , addrID = staff.addrID ,'''
 		obj.salaryToBePaid=10;
 		obj.save()
 		obj= Staff.objects.get(staffID=x)
-		user = User(staffID=obj,userName=username, password ='password')
-		user.save()
+		user = Person(staffID=obj,userName=username, password ='password')
+		user.save() 
 		return username
-		
+	
+   #def addPerson(self,gender,firs):
    def setHeadAccountant(self,ID):
 		x= Staff.objects.get(staffID=ID)
 		x.position=2
@@ -56,7 +59,7 @@ class Staff(models.Model):
 		
    def updateStaff(self,user,ID):
 		s = Staff.objects.get(staffID=ID)
-		x = User.objects.get(staffID=s)
+		x = Person.objects.get(staffID=s)
 		x.firstName = user.firstName
 		x.middleName = user.middleName
 		x.lastName = user.lastName
@@ -80,17 +83,20 @@ class Staff(models.Model):
    
 		s = Student.objects.filter().count()+1
 		x = Student(classNumber=classNumber,hasVan=hasVan,currentYear=currentYear,studentID=s)
-		
 		x.save()
 		id = Student.objects.get(studentID=s)
 		#id.initBalance()
+		ids = Staff.objects.get(staffID=1)
 		
-		x = User(firstName=firstName,middleName=middleName,lastName=lastName,sex=sex,dob=dob,studentID=id)
+		x = Person(firstName=firstName,middleName=middleName,lastName=lastName,sex=sex,dob=dob,studentID=id,staffID=ids,userName = firstName+lastName+str(datetime.datetime.now()))
 		x.save()
+		p = Person.objects.get(studentID=id)
+		p.firstName
 		return s
 
    def addParent(self,firstName,middleName,lastName,relation,student,aID,cID):
-      u = User(firstName=firstName,middleName=middleName,lastName=lastName,studentID=student,isParent=1)
+      staffID = Staff.objects.get(staffID=1) 
+      u = Person(firstName=firstName,middleName=middleName,lastName=lastName,studentID=student,isParent=1,staffID=staffID,userName = firstName+lastName+str(datetime.datetime.now()))
       u.save()
       p = Parent(relation=relation,addrID=aID,cID=cID,studentID=student)
       p.save() 
@@ -104,6 +110,19 @@ class Staff(models.Model):
       cid = Address.objects.get(aID=aid)
       s.aID = aid
       s.save()
+   def setContactParent(self,sid,cid):
+       s = Student.objects.get(studentID=sid)
+       pa = Parent.objects.get(studentID=s)
+       
+       cid = Contact.objects.get(cID=cid)
+       pa.cID = cid
+       pa.save()
+   def setAddressStaff(self,sid,aid):
+      s = Student.objects.get(studentID=sid)
+      pa = Parent.objects.get(studentID=s)
+      aid = Address.objects.get(aID=aid)
+      pa.aID = aid
+      pa.save()
 		
    def approveFund(self,fundID):
       f=FundRequest(fundID=fundID)
@@ -121,14 +140,39 @@ class Staff(models.Model):
       x=FinancialReport(year = datetime.date.today().year , amount = -(x.amount), reason = x.reason)  
       x.save()
       return 1
-'''
-   def approveConcession (fundID):
-      f=FundRequest(fundID=fundID)
+	  
+   def approveConcession (self,conID):
+      f=ConRequest(fundID=fundID)
       f.status=1
-	  f.save()
+      f.student.feesToBePaid -= f.amount*10 
+      f.student.save()
       x.save()
-	  return 1
-'''	
+      return 1
+   def addFunReq(self,amount,reason):
+       x=FundRequest.objects.filter().count()+1
+       f = FundRequest(fundID=x,amount=amount,reason=reason,status=0)
+       f.save()
+       return x
+   def addRemReq(self,studentID,amount,reason):
+      x=RemReqest.objects.filter().count()+1
+      try:
+		stu = Student.get.objects(studentID=staffID)
+		f = RemReqest(remID=x,amount=amount,reason=reason,status=0,studentID = stu)
+		f.save()
+		return x
+      except:
+        return -1
+   def addConReq(self,studentID,amount,reason):
+     try:
+		x=ConReqest.objects.filter().count()+1		
+		stu = Student.objects.get(studentID=studentID)
+		f = ConReqest(conID = x,amount=amount,reason=reason,status=0,studentID=stu)
+		f.save()
+		return x
+     except:
+        return -1
+   def insertfeeStruct(self):
+     a=12
 class Contact(models.Model):
    cID = models.IntegerField()
    email = models.EmailField( max_length=100 , null=True)
@@ -183,12 +227,13 @@ class Section ( models.Model ):
 
 class FeeStruct ( models.Model ): 
    #classList = ( ( -1 , 'LKG' ) , ( 0 , 'UKG' ) , (1,1) , (2,2) , (3,3), (4,4), (5,5),(6,6) , (7,7) , (8,8) , (9,9) (10,10) )
-   acadYear = models.IntegerField( null= True)
+   
+   acadYear = models.IntegerField( primary_key=True)
    vanFee = models.IntegerField( default=0)
    termFee = models.IntegerField( default=0 )
    acadFee = models.IntegerField( default=0 )
    startYear = models.IntegerField( null= True ) 
-   classNumber = models.IntegerField( null=True ) 
+   classNumber = models.IntegerField( primary_key=True ) 
    numberTerms = models.IntegerField (default=3)
    def total_vanfee(self):
        return self.vanFee * 10
@@ -207,11 +252,6 @@ class FundRequest(models.Model):
 	status = models.IntegerField()
 	reason = models.CharField(max_length=100)
 	amount = models.IntegerField()
-	def addReq(amount,reason):
-		x=FundRequest.objects.filter().count()+1
-		f = FundRequest(fundID=x,amount=amount,reason=reason,status=0)
-		f.save()
-		return x
 		
 class ConReqest(models.Model):
 	conID =models.IntegerField(primary_key=True)
@@ -219,7 +259,7 @@ class ConReqest(models.Model):
 	reason = models.CharField(max_length=100)
 	amount = models.IntegerField()
 	studentID = models.ForeignKey('Student')
-	def addReq(studentID,amount,reason):
+	def addConReq(studentID,amount,reason):
 		x=ConRequest.objects.filter().count()+1		
 		stu = Student.get.objects(studentID=staffID)
 		f = ConRequest(conID = x,amount=amount,reason=reason,status=0,studentID=stu)
@@ -231,15 +271,9 @@ class RemReqest(models.Model):
 	status = models.IntegerField()
 	reason = models.CharField(max_length=100)
 	amount = models.IntegerField()
-	def addReq(studentID,amount,reason):
-		x=RemRequest.objects.filter().count()+1
-		stu = Student.get.objects(studentID=staffID)
-		f = RemRequest(remID=x,amount=amount,reason=reason,status=0,studentID = stu)
-		f.save()
-		return x
-
+	
 class FinancialReport(models.Model):
 	year = models.IntegerField()
 	amount = models.IntegerField()
 	reason = models.CharField(max_length=100)
-	 
+	
