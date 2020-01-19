@@ -7,36 +7,28 @@ from .models import Person,Staff,FeeStruct,Student,Contact, Address,Parent
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
-
-
-
 def index(request):
     return render(request,'polls/login.html')
 
 def login(request):
-     
      if request.method == 'POST':
         username = request.POST.get('username11')
         password = request.POST.get('password11')
-        try:
-		    
-		    user = Person.objects.get(userName=username , password = password)
-		    role = user.getStaffRole()
-		    
-		    if role == 'A': #is accountant 
-			   
-			   context346 = {};
-			   
-			   
-			   return render(request, 'polls/correspondent.html', context346)
-		    elif role == 'C': #correspondent
-			   context346 = {};
-			   return render(request, 'polls/correspondent.html', context346)
-		    elif role == 'H': #HEad 
-			   context346 = {};
-			   return render(request, 'polls/correspondent.html', context346)
-        except ObjectDoesNotExist:
-            return HttpResponse("Person is not iiitg")
+        # try:
+            # user = Person.objects.get(userName=username, password = password)
+            # role = user.getStaffRole()
+
+            # if role == 'A': #is accountant 
+            #     context346 = {}
+            #     return render(request, 'polls/correspondent.html', context346)
+            # elif role == 'C': #correspondent
+            #     context346 = {}
+            #     return render(request, 'polls/correspondent.html', context346)
+            # elif role == 'H': #HEad 
+        context346 = {}
+        return render(request, 'polls/correspondent.html', context346)
+        # except ObjectDoesNotExist:
+            # return HttpResponse("Person is not iiitg")
      else:
         return render(request, 'polls/correspondent.html',)
 
@@ -126,11 +118,9 @@ def caddfac(request):
         address = request.POST.get('add')
         context={  }
         return render(request, 'polls/c_addfaculty.html', context)
-        #return HttpResponse("Person is not iiitg" + str(name) + str(email) + str(address))
     else:
-		
-		context={"a" : request.COOKIES['id']}
-		return render(request, 'polls/c_addfaculty.html', context)
+        context={"a" : request.COOKIES['id']}
+        return render(request, 'polls/c_addfaculty.html', context)
 
 def caddreg(request):
 	if request.method == 'POST':
@@ -233,68 +223,33 @@ def capp(request):
 
 def csfee(request):
     if request.method == 'POST':
-		bl = request.POST.get('bl');tl = request.POST.get('tl');sl = request.POST.get('sl');
-		bu = request.POST.get('bu');tu = request.POST.get('tu');su = request.POST.get('su');
-		b1 = request.POST.get('b1');t1 = request.POST.get('t1');s1 = request.POST.get('s1');
-		b2 = request.POST.get('b2');t2 = request.POST.get('t2');s2 = request.POST.get('s2');
-		b3 = request.POST.get('b3');t3 = request.POST.get('t3');s3 = request.POST.get('s3');
-		b4 = request.POST.get('b4');t4 = request.POST.get('t4');s4 = request.POST.get('s4');
-		b5 = request.POST.get('b5');t5 = request.POST.get('t5');s5 = request.POST.get('s5');
-		b6 = request.POST.get('b6');t6 = request.POST.get('t6');s6 = request.POST.get('s6');
-		b7 = request.POST.get('b7');t7 = request.POST.get('t7');s7 = request.POST.get('s7');
-		b8 = request.POST.get('b8');t8 = request.POST.get('t8');s8 = request.POST.get('s8');
-		b9 = request.POST.get('b9');t9 = request.POST.get('t9');s9 = request.POST.get('s9');
-		b10 = request.POST.get('b10');t10 = request.POST.get('t10');s10 = request.POST.get('s10');
-		return HttpResponse("Person is div : 1    ;" + str(sl) + str(bl) + str(tl) + str(bu))
+        bl = request.POST.get('bl')
+        tl = request.POST.get('tl')
+        sl = request.POST.get('sl')
+        bu = request.POST.get('bu')
+        tu = request.POST.get('tu')
+        su = request.POST.get('su')
+        b1 = request.POST.get('b1');t1 = request.POST.get('t1');s1 = request.POST.get('s1')
+        b2 = request.POST.get('b2');t2 = request.POST.get('t2');s2 = request.POST.get('s2')
+        b3 = request.POST.get('b3');t3 = request.POST.get('t3');s3 = request.POST.get('s3')
+        b4 = request.POST.get('b4');t4 = request.POST.get('t4');s4 = request.POST.get('s4')
+        b5 = request.POST.get('b5');t5 = request.POST.get('t5');s5 = request.POST.get('s5')
+        b6 = request.POST.get('b6');t6 = request.POST.get('t6');s6 = request.POST.get('s6')
+        b7 = request.POST.get('b7');t7 = request.POST.get('t7');s7 = request.POST.get('s7')
+        b8 = request.POST.get('b8');t8 = request.POST.get('t8');s8 = request.POST.get('s8')
+        b9 = request.POST.get('b9');t9 = request.POST.get('t9');s9 = request.POST.get('s9')
+        b10 = request.POST.get('b10');t10 = request.POST.get('t10');s10 = request.POST.get('s10')
+        return HttpResponse("Person is div : 1    ;" + str(sl) + str(bl) + str(tl) + str(bu))
     else:
-		return render(request, 'polls/c_setfee.html', )
+        return render(request, 'polls/c_setfee.html', )
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-####################################################################################
 
 
 def reg(request):
     context={}
     return render(request, 'polls/registar.html', context)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-####################################################################################
-
 
 def hreg(request):
     context={}
